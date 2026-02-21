@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Tech Maid | Professional House Cleaning Chicago</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333333;
+            background: #FFFFFF;
+            overflow-x: hidden;
+        }
+        .font-display {
+            font-family: 'Poppins', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #007BFF 0%, #28A745 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn-primary {
+            background: #007BFF;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 123, 255, 0.4);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Fade In Up Animation */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Stagger Animation Delays */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        
+        /* Card Hover Effects */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Icon Hover Animation */
+        .icon-box {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover .icon-box {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* Navigation Link Hover */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #007BFF;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Counter Animation using CSS @property */
+        @property --num {
+            syntax: "<integer>";
+            initial-value: 0;
+            inherits: false;
+        }
+        
+        .counter-animated {
+            --num: 0;
+            counter-reset: num var(--num);
+            animation: countUp 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-play-state: paused;
+        }
+        
+        .counter-animated.visible {
+            animation-play-state: running;
+        }
+        
+        .counter-animated::after {
+            content: counter(num);
+        }
+        
+        @keyframes countUp {
+            from { --num: 0; }
+        }
+        
+        /* Specific counter targets */
+        .counter-3000 { --target: 3000; }
+        .counter-3000.visible { animation-name: count3000; }
+        @keyframes count3000 { to { --num: 3000; } }
+        
+        .counter-15 { --target: 15; }
+        .counter-15.visible { animation-name: count15; }
+        @keyframes count15 { to { --num: 15; } }
+        
+        .counter-5000 { --target: 5000; }
+        .counter-5000.visible { animation-name: count5000; }
+        @keyframes count5000 { to { --num: 5000; } }
+        
+        .counter-99 { --target: 99; }
+        .counter-99.visible { animation-name: count99; }
+        @keyframes count99 { to { --num: 99; } }
+        
+        /* Testimonial Card Animation */
+        .testimonial-card {
+            transition: all 0.4s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Social Icon Hover (non-clickable) */
+        .social-icon {
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .social-icon:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.2);
+        }
+        
+        /* Modal Animation */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Gradient Background Animation */
+        .gradient-bg {
+            background: linear-gradient(-45deg, #f0f9ff, #ffffff, #f0fdf4, #ffffff);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Image Hover Zoom */
+        .img-zoom {
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+        .img-zoom img {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .img-zoom:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Button Shine Effect */
+        .btn-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .btn-shine:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Name Instead of Logo -->
+                <div class="flex items-center gap-3 fade-in-up">
+                    <span class="font-display text-2xl font-bold text-[#007BFF]">Demo Tech Maid</span>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#services" class="nav-link text-[#333333] hover:text-[#007BFF] font-medium transition-colors">Services</a>
+                    <a href="#how-we-clean" class="nav-link text-[#333333] hover:text-[#007BFF] font-medium transition-colors">How We Clean</a>
+                    <a href="#about" class="nav-link text-[#333333] hover:text-[#007BFF] font-medium transition-colors">About</a>
+                    <a href="#testimonials" class="nav-link text-[#333333] hover:text-[#007BFF] font-medium transition-colors">Reviews</a>
+                </div>
+                
+                <div class="flex items-center gap-4 fade-in-up stagger-2">
+                    <button onclick="openModal()" class="btn-primary btn-shine text-white px-6 py-3 rounded-full font-bold text-sm uppercase shadow-lg hover:shadow-xl">
+                        Book a Cleaning
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg py-20 relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+        <div class="absolute top-20 right-10 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="space-y-6 fade-in-up">
+                
+                <h1 class="font-display text-5xl lg:text-6xl font-bold text-black leading-tight">
+                    Make Your Home <span class="gradient-text">Spotless</span>, Healthy, & Guest-Ready!
+                </h1>
+                
+                <p class="text-xl text-[#333333] leading-relaxed">
+                    Chicago's most trusted <span class="font-semibold text-[#007BFF]">chemical-free</span> maid service. We make life easier and homes safer for your family.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="openModal()" class="btn-primary btn-shine text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all">
+                        Book Your Cleaning Now
+                        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-6 pt-4 text-sm text-[#333333] fade-in-up stagger-3">
+                    <div class="flex items-center gap-2 hover:text-[#28A745] transition-colors">
+                        <svg class="w-5 h-5 text-[#28A745]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <span>Licensed & Insured</span>
+                    </div>
+                    <div class="flex items-center gap-2 hover:text-[#28A745] transition-colors">
+                        <svg class="w-5 h-5 text-[#28A745]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <span>Chemical-Free</span>
+                    </div>
+                    <div class="flex items-center gap-2 hover:text-[#28A745] transition-colors">
+                        <svg class="w-5 h-5 text-[#28A745]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <span>100% Satisfaction</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative fade-in-up stagger-2">
+                <div class="img-zoom shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80" alt="Professional cleaning" class="rounded-2xl w-full h-[500px] object-cover">
+                </div>
+                
+                <!-- Number Animation Cards -->
+                <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-shadow cursor-default">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-[#28A745]/10 p-3 rounded-full icon-box">
+                            <svg class="w-8 h-8 text-[#28A745]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-black">$<span class="counter-animated counter-3000" data-target="3000">0</span></p>
+                            <p class="text-sm text-[#333333]">Free Bonus Value</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute -top-4 -right-4 bg-[#007BFF] text-white p-4 rounded-2xl shadow-lg hover:scale-110 transition-transform cursor-default">
+                    <div class="text-center">
+                        <p class="text-2xl font-bold"><span class="counter-animated counter-15" data-target="15">0</span>+</p>
+                        <p class="text-xs">Years Experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Clean -->
+    <section id="how-we-clean" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 fade-in-up">
+                <span class="text-[#28A745] font-bold text-sm uppercase tracking-wider">Our Process</span>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-black mt-2 mb-4">How We Clean</h2>
+                <p class="text-xl text-[#333333]">Get tailored house cleaning services Chicago residents love—in just 4 simple steps</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="service-card bg-[#F8F9FA] rounded-3xl p-8 border border-gray-100 fade-in-up stagger-1">
+                    <div class="icon-box w-14 h-14 bg-[#007BFF]/10 rounded-2xl flex items-center justify-center mb-6 text-[#007BFF]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-black mb-3">Easy Online Booking</h3>
+                    <p class="text-[#333333] mb-4">Contact us to book your cleaning, either online or over the phone.</p>
+                    <button onclick="openModal()" class="text-[#007BFF] font-semibold hover:text-[#28A745] transition-colors flex items-center gap-1 group">
+                        Book a Cleaning 
+                        <span class="transform group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="service-card bg-[#F8F9FA] rounded-3xl p-8 border border-gray-100 fade-in-up stagger-2">
+                    <div class="icon-box w-14 h-14 bg-[#28A745]/10 rounded-2xl flex items-center justify-center mb-6 text-[#28A745]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-black mb-3">Chemical Free Cleaning</h3>
+                    <p class="text-[#333333] mb-4">We use chemical-free solutions without harming health or environment.</p>
+                    <button onclick="openModal()" class="text-[#007BFF] font-semibold hover:text-[#28A745] transition-colors flex items-center gap-1 group">
+                        Book a Cleaning 
+                        <span class="transform group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="service-card bg-[#F8F9FA] rounded-3xl p-8 border border-gray-100 fade-in-up stagger-3">
+                    <div class="icon-box w-14 h-14 bg-[#007BFF]/10 rounded-2xl flex items-center justify-center mb-6 text-[#007BFF]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-black mb-3">Clean With Unyielding Standard</h3>
+                    <p class="text-[#333333] mb-4">We focus on high-contact areas and remove all dirt thoroughly.</p>
+                    <button onclick="openModal()" class="text-[#007BFF] font-semibold hover:text-[#28A745] transition-colors flex items-center gap-1 group">
+                        Book a Cleaning 
+                        <span class="transform group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="service-card bg-[#F8F9FA] rounded-3xl p-8 border border-gray-100 fade-in-up stagger-4">
+                    <div class="icon-box w-14 h-14 bg-[#28A745]/10 rounded-2xl flex items-center justify-center mb-6 text-[#28A745]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-black mb-3">Save More Time</h3>
+                    <p class="text-[#333333] mb-4">Every room meets high standards so you enjoy more time with family.</p>
+                    <button onclick="openModal()" class="text-[#007BFF] font-semibold hover:text-[#28A745] transition-colors flex items-center gap-1 group">
+                        Book a Cleaning 
+                        <span class="transform group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-[#F8F9FA]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 fade-in-up">
+                <span class="text-[#28A745] font-bold text-sm uppercase tracking-wider">Our Services</span>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-black mt-2 mb-4">The Cleaning Company Chicago Families Trust</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service Cards -->
+                <div class="service-card bg-white rounded-3xl p-6 border border-gray-100 fade-in-up stagger-1">
+                    <div class="icon-box w-14 h-14 bg-[#007BFF]/10 rounded-2xl flex items-center justify-center mb-4 text-[#007BFF]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-black mb-2">Deep Cleaning</h3>
+                    <p class="text-[#333333] text-sm mb-4">Thorough cleaning perfect for refreshing every corner.</p>
+                    <button onclick="openModal('deep')" class="text-[#007BFF] font-semibold text-sm hover:text-[#28A745] transition-colors">Book Now →</button>
+                </div>
+
+                <div class="service-card bg-white rounded-3xl p-6 border border-gray-100 fade-in-up stagger-2">
+                    <div class="icon-box w-14 h-14 bg-[#28A745]/10 rounded-2xl flex items-center justify-center mb-4 text-[#28A745]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-black mb-2">Move In Cleaning</h3>
+                    <p class="text-[#333333] text-sm mb-4">Make your new home spotless before you move in.</p>
+                    <button onclick="openModal('move-in')" class="text-[#007BFF] font-semibold text-sm hover:text-[#28A745] transition-colors">Book Now →</button>
+                </div>
+
+                <div class="service-card bg-white rounded-3xl p-6 border border-gray-100 fade-in-up stagger-3">
+                    <div class="icon-box w-14 h-14 bg-[#007BFF]/10 rounded-2xl flex items-center justify-center mb-4 text-[#007BFF]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-black mb-2">Spring Cleaning</h3>
+                    <p class="text-[#333333] text-sm mb-4">Fresh start with comprehensive deep cleaning.</p>
+                    <button onclick="openModal('spring')" class="text-[#007BFF] font-semibold text-sm hover:text-[#28A745] transition-colors">Book Now →</button>
+                </div>
+
+                <div class="service-card bg-white rounded-3xl p-6 border border-gray-100 fade-in-up stagger-4">
+                    <div class="icon-box w-14 h-14 bg-[#28A745]/10 rounded-2xl flex items-center justify-center mb-4 text-[#28A745]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-black mb-2">Move Out Cleaning</h3>
+                    <p class="text-[#333333] text-sm mb-4">Leave your old home pristine for deposit return.</p>
+                    <button onclick="openModal('move-out')" class="text-[#007BFF] font-semibold text-sm hover:text-[#28A745] transition-colors">Book Now →</button>
+                </div>
+
+                <div class="service-card bg-white rounded-3xl p-6 border border-gray-100 fade-in-up stagger-1">
+                    <div class="icon-box w-14 h-14 bg-[#007BFF]/10 rounded-2xl flex items-center justify-center mb-4 text-[#007BFF]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-black mb-2">Post Construction</h3>
+                    <p class="text-[#333333] text-sm mb-4">Remove construction dust and debris.</p>
+                    <button onclick="openModal('post-construction')" class="text-[#007BFF] font-semibold text-sm hover:text-[#28A745] transition-colors">Book Now →</button>
+                </div>
+
+                <div class="service-card bg-white rounded-3xl p-6 border border-gray-100 fade-in-up stagger-2">
+                    <div class="icon-box w-14 h-14 bg-[#28A745]/10 rounded-2xl flex items-center justify-center mb-4 text-[#28A745]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-black mb-2">One Time Cleaning</h3>
+                    <p class="text-[#333333] text-sm mb-4">Detailed cleaning for special occasions.</p>
+                    <button onclick="openModal('one-time')" class="text-[#007BFF] font-semibold text-sm hover:text-[#28A745] transition-colors">Book Now →</button>
+                </div>
+
+                <div class="service-card bg-white rounded-3xl p-6 border border-gray-100 fade-in-up stagger-3">
+                    <div class="icon-box w-14 h-14 bg-[#007BFF]/10 rounded-2xl flex items-center justify-center mb-4 text-[#007BFF]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-black mb-2">Apartment Cleaning</h3>
+                    <p class="text-[#333333] text-sm mb-4">Specialized services for apartments.</p>
+                    <button onclick="openModal('apartment')" class="text-[#007BFF] font-semibold text-sm hover:text-[#28A745] transition-colors">Book Now →</button>
+                </div>
+
+                <div class="service-card bg-white rounded-3xl p-6 border border-gray-100 fade-in-up stagger-4">
+                    <div class="icon-box w-14 h-14 bg-[#28A745]/10 rounded-2xl flex items-center justify-center mb-4 text-[#28A745]">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-black mb-2">Recurring Cleaning</h3>
+                    <p class="text-[#333333] text-sm mb-4">Consistently clean home year-round.</p>
+                    <button onclick="openModal('recurring')" class="text-[#007BFF] font-semibold text-sm hover:text-[#28A745] transition-colors">Book Now →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section with Counter -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="relative fade-in-up">
+                    <div class="img-zoom shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=800&q=80" alt="Cleaning team" class="rounded-2xl w-full h-[500px] object-cover">
+                    </div>
+                    
+                    <!-- Counter Badge -->
+                    <div class="absolute -bottom-6 -right-6 bg-[#007BFF] text-white p-6 rounded-2xl shadow-xl hover:scale-110 transition-transform cursor-default">
+                        <p class="text-4xl font-bold"><span class="counter-animated counter-15" data-target="15">0</span>+</p>
+                        <p class="text-sm">Years of Excellence</p>
+                    </div>
+                </div>
+
+                <div class="fade-in-up stagger-2">
+                    <span class="text-[#28A745] font-bold text-sm uppercase tracking-wider">About Us</span>
+                    <h2 class="font-display text-4xl lg:text-5xl font-bold text-black mt-2 mb-6">Cleaning Services Chicago That You Can Count On</h2>
+                    
+                    <p class="text-[#333333] text-lg mb-6 leading-relaxed">
+                        We at Demo Tech Maid endeavor to provide you & your family with the highest level of health & safety. We only rely on <span class="font-semibold text-[#007BFF]">chemical-free</span> cleaners.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-start gap-3 p-4 rounded-xl hover:bg-gray-50 transition-colors">
+                            <div class="w-10 h-10 bg-[#28A745]/10 rounded-lg flex items-center justify-center icon-box">
+                                <svg class="w-5 h-5 text-[#28A745]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-black">Insured Staff</p>
+                                <p class="text-sm text-[#333333]">Full background checks</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-4 rounded-xl hover:bg-gray-50 transition-colors">
+                            <div class="w-10 h-10 bg-[#007BFF]/10 rounded-lg flex items-center justify-center icon-box">
+                                <svg class="w-5 h-5 text-[#007BFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-black">Eco-Friendly</p>
+                                <p class="text-sm text-[#333333]">Chemical-free products</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button onclick="openModal()" class="btn-primary btn-shine text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all">Book a Cleaning</button>
+                        <a href="#contact" class="border-2 border-[#007BFF] text-[#007BFF] px-8 py-3 rounded-full font-bold hover:bg-[#007BFF] hover:text-white transition-all hover:scale-105">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section with Big Counters -->
+    <section class="py-20 bg-[#007BFF] text-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div class="fade-in-up stagger-1 hover:scale-105 transition-transform">
+                    <p class="text-5xl font-bold mb-2">$<span class="counter-animated counter-3000" data-target="3000">0</span></p>
+                    <p class="text-blue-100">Free Bonus Value</p>
+                </div>
+                <div class="fade-in-up stagger-2 hover:scale-105 transition-transform">
+                    <p class="text-5xl font-bold mb-2"><span class="counter-animated counter-15" data-target="15">0</span>+</p>
+                    <p class="text-blue-100">Years Experience</p>
+                </div>
+                <div class="fade-in-up stagger-3 hover:scale-105 transition-transform">
+                    <p class="text-5xl font-bold mb-2"><span class="counter-animated counter-5000" data-target="5000">0</span>+</p>
+                    <p class="text-blue-100">Happy Clients</p>
+                </div>
+                <div class="fade-in-up stagger-4 hover:scale-105 transition-transform">
+                    <p class="text-5xl font-bold mb-2"><span class="counter-animated counter-99" data-target="99">0</span>%</p>
+                    <p class="text-blue-100">Satisfaction Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-[#007BFF] text-white text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500"></div>
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 fade-in-up">
+            <h2 class="font-display text-4xl lg:text-5xl font-bold mb-6">Make Your Chicago Home Sparkle</h2>
+            <p class="text-xl text-blue-100 mb-8">Our chemical-free services are cleaner, healthier, and safer for your entire family!</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="openModal()" class="bg-white text-[#007BFF] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all shadow-xl hover:shadow-2xl hover:scale-105 transform">
+                    Book Your Cleaning Today
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-24 bg-[#F8F9FA]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-[#28A745] font-bold text-sm uppercase tracking-wider">Testimonials</span>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-black mt-2 mb-4">Our Beloved Chicago Community Has Something To Say</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg border border-gray-100 fade-in-up stagger-1">
+                    <div class="flex text-[#28A745] mb-4 text-lg">★★★★★</div>
+                    <p class="text-[#333333] mb-6 italic leading-relaxed">"Demo Tech Maid transformed our home! The chemical-free products smell amazing and I feel safe with my kids and pets around."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-[#007BFF]/10 rounded-full flex items-center justify-center text-[#007BFF] font-bold text-lg">S</div>
+                        <div>
+                            <p class="font-bold text-black">Sarah M.</p>
+                            <p class="text-sm text-[#333333]">Evanston, IL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg border border-gray-100 fade-in-up stagger-2">
+                    <div class="flex text-[#28A745] mb-4 text-lg">★★★★★</div>
+                    <p class="text-[#333333] mb-6 italic leading-relaxed">"Best move-out cleaning service in Chicago. Got my full security deposit back thanks to their attention to detail."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-[#28A745]/10 rounded-full flex items-center justify-center text-[#28A745] font-bold text-lg">J</div>
+                        <div>
+                            <p class="font-bold text-black">James K.</p>
+                            <p class="text-sm text-[#333333]">Arlington Heights, IL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg border border-gray-100 fade-in-up stagger-3">
+                    <div class="flex text-[#28A745] mb-4 text-lg">★★★★★</div>
+                    <p class="text-[#333333] mb-6 italic leading-relaxed">"I've used them for recurring cleaning for 6 months. Always on time, consistent quality, and love the eco-friendly products!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-[#007BFF]/10 rounded-full flex items-center justify-center text-[#007BFF] font-bold text-lg">M</div>
+                        <div>
+                            <p class="font-bold text-black">Maria L.</p>
+                            <p class="text-sm text-[#333333]">Chicago, IL</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-300 py-16" id="contact">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div class="fade-in-up">
+                    <!-- Brand Name Instead of Logo -->
+                    <h3 class="font-display text-2xl font-bold text-white mb-6">Demo Tech Maid</h3>
+                    <p class="text-sm leading-relaxed mb-6">Chicago's premier chemical-free house cleaning service.</p>
+                    
+                    <!-- Social Icons - No Links -->
+                    <div class="flex gap-3">
+                        <div class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </div>
+                        <div class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </div>
+                        <div class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </div>
+                        <div class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.5 14.5c0 .828-.672 1.5-1.5 1.5h-6c-.828 0-1.5-.672-1.5-1.5v-9c0-.828.672-1.5 1.5-1.5h6c.828 0 1.5.672 1.5 1.5v9z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-in-up stagger-1">
+                    <h4 class="text-white font-bold mb-4">Services</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#services" class="hover:text-[#007BFF] transition-colors">Deep Cleaning</a></li>
+                        <li><a href="#services" class="hover:text-[#007BFF] transition-colors">Move In/Out</a></li>
+                        <li><a href="#services" class="hover:text-[#007BFF] transition-colors">Recurring Cleaning</a></li>
+                        <li><a href="#services" class="hover:text-[#007BFF] transition-colors">Post Construction</a></li>
+                    </ul>
+                </div>
+
+                <div class="fade-in-up stagger-2">
+                    <h4 class="text-white font-bold mb-4">Contact</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-[#007BFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span>democleaning@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="fade-in-up stagger-3">
+                    <h4 class="text-white font-bold mb-4">Book Now</h4>
+                    <button onclick="openModal()" class="btn-primary text-white px-6 py-3 rounded-full font-bold w-full hover:shadow-lg transition-all">Book a Cleaning</button>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-sm fade-in-up">
+                <p></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4 backdrop-blur-sm transition-all duration-300">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <div class="text-center mb-6">
+                <h3 class="font-display text-2xl font-bold text-black">Book Your Cleaning</h3>
+                <p class="text-[#333333] mt-2">Get your free estimate today</p>
+            </div>
+
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-4" onsubmit="handleSubmit(event)">
+                <input type="hidden" name="_subject" value="New Booking - Demo Tech Maid">
+                
+                <div class="group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                    <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#007BFF] focus:ring-2 focus:ring-[#007BFF]/20 outline-none transition-all hover:border-gray-400" placeholder="Your full name">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
+                    <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#007BFF] focus:ring-2 focus:ring-[#007BFF]/20 outline-none transition-all hover:border-gray-400" placeholder="Your phone number">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" name="email" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#007BFF] focus:ring-2 focus:ring-[#007BFF]/20 outline-none transition-all hover:border-gray-400" placeholder="your@email.com">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Service Type *</label>
+                    <select name="service" id="serviceSelect" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#007BFF] focus:ring-2 focus:ring-[#007BFF]/20 outline-none transition-all hover:border-gray-400 bg-white">
+                        <option value="">Select a service...</option>
+                        <option value="general">General Cleaning</option>
+                        <option value="deep">Deep Cleaning</option>
+                        <option value="move-in">Move-In Cleaning</option>
+                        <option value="move-out">Move-Out Cleaning</option>
+                        <option value="recurring">Recurring Cleaning</option>
+                        <option value="post-construction">Post Construction</option>
+                        <option value="apartment">Apartment Cleaning</option>
+                        <option value="one-time">One-Time Cleaning</option>
+                        <option value="spring">Spring Cleaning</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                    <textarea name="message" rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#007BFF] focus:ring-2 focus:ring-[#007BFF]/20 outline-none resize-none transition-all hover:border-gray-400" placeholder="Any specific requirements..."></textarea>
+                </div>
+                
+                <button type="submit" id="submitBtn" class="w-full btn-primary btn-shine text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all">
+                    Send Booking Request
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-sm text-[#333333]">Questions? Email us at:</p>
+                <span class="text-[#007BFF] font-bold text-lg">democleaning@gmail.com</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.fade-in-up, .counter-animated');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+
+        // Modal Functions
+        function openModal(serviceType = '') {
+            const modal = document.getElementById('bookingModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden';
+            
+            if (serviceType) {
+                const select = document.getElementById('serviceSelect');
+                for (let option of select.options) {
+                    if (option.value === serviceType) {
+                        select.value = serviceType;
+                        break;
+                    }
+                }
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('bookingModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        // Form Submit Handler
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<span class="flex items-center justify-center gap-2"><svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Sending...</svg></span>';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Thank you! Your booking request has been sent. We will contact you shortly.');
+                closeModal();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                e.target.reset();
+            }, 1500);
+        }
+
+        // Close modal on outside click
+        document.getElementById('bookingModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
